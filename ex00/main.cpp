@@ -3,7 +3,7 @@
 #include "../Vector.hpp"
 #include "../Matrix.hpp"
 
-int main(void)
+int main()
 {
     {
         std::cout << "VECTOR TESTS:" << std::endl;
@@ -30,13 +30,13 @@ int main(void)
     }
     {
         std::cout << "\nMATRIX TESTS:" << std::endl;
-        std::vector<std::vector<K>> mat = {
+        std::vector<std::vector<K> > mat = {
         {1., 2.},
         {3., 4.}};
         Matrix u(mat);
         std::cout << "u = " << u << std::endl;
 
-        std::vector<std::vector<K>> mat2 = {
+        std::vector<std::vector<K> > mat2 = {
         {7., 4.},
         {-2., 2.}};
         Matrix v(mat2);

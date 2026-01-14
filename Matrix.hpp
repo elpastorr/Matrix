@@ -19,12 +19,12 @@ typedef double K;
 
 class Matrix {
     public:
-        Matrix(std::vector<std::vector<K>> values);
+        Matrix(std::vector<std::vector<K> > values);
         Matrix(size_t rows, size_t cols);
         Matrix(const Matrix& matrix);
         Matrix operator = (const Matrix& matrix);
 
-        std::vector<std::vector<K>> get_values() const;
+        std::vector<std::vector<K> > get_values() const;
         K get_value(size_t row, size_t col) const;
         void set_value(size_t row, size_t col, K value);
         std::vector<K> get_row(size_t row) const;
@@ -54,11 +54,11 @@ class Matrix {
         Matrix operator * (const K& scalar);
 
         private:
-            std::vector<std::vector<K>> _values;
+            std::vector<std::vector<K> > _values;
 
 };
 
-std::vector<std::vector<K>> createSmallerMatrix(usize_t row, Matrix matrix);
+std::vector<std::vector<K> > createSmallerMatrix(usize_t row, Matrix matrix);
 std::ostream& operator<<(std::ostream& os, const Matrix& values);
 
 #endif

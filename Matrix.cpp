@@ -1,6 +1,6 @@
 #include "Matrix.hpp"
 
-Matrix::Matrix(std::vector<std::vector<K>> values){
+Matrix::Matrix(std::vector<std::vector<K> > values){
     usize_t rows = values.size();
     if (rows < 2){
         throw std::invalid_argument("Matrix must have at least 2 rows.");
@@ -22,7 +22,7 @@ Matrix::Matrix(size_t size_rows, size_t size_cols){
         throw std::invalid_argument("Wrong Matrix dimensions.");
     }
     std::vector<K> rows(size_rows, 0);
-    _values = std::vector<std::vector<K>>(size_cols, rows);
+    _values = std::vector<std::vector<K> >(size_cols, rows);
     this->reset();
 }
 
@@ -37,19 +37,19 @@ Matrix Matrix::operator = (const Matrix& matrix) {
     return *this;
 }
 
-std::vector<std::vector<K>> Matrix::get_values() const {
+std::vector<std::vector<K> > Matrix::get_values() const {
     return _values;
 }
 
 K Matrix::get_value(size_t row, size_t col) const {
-    if (row < 0 || row >= this->get_rows() || col < 0 || col >= this->get_cols()) {
+    if (row >= this->get_rows() || col >= this->get_cols()) {
         throw std::out_of_range("Impossible to get value out of the matrix.");
     }
     return _values[row][col];
 }
 
 void Matrix::set_value(size_t row, size_t col, K value) {
-    if (row < 0 || row >= this->get_rows() || col < 0 || col >= this->get_cols()) {
+    if (row >= this->get_rows() || col >= this->get_cols()) {
         throw std::out_of_range("Impossible to set value out of the matrix.");
     }
     _values[row][col] = value;
@@ -100,9 +100,9 @@ void Matrix::reset(){
     }
 }
 
-std::vector<std::vector<K>> createSmallerMatrix(usize_t row, Matrix matrix){
-    std::vector<std::vector<K>> res;
-    std::vector<std::vector<K>> curr = matrix.get_values();
+std::vector<std::vector<K> > createSmallerMatrix(usize_t row, Matrix matrix){
+    std::vector<std::vector<K> > res;
+    std::vector<std::vector<K> > curr = matrix.get_values();
     usize_t size = matrix.get_cols();
 
     for (usize_t i = 1; i < size; i++){
@@ -118,7 +118,7 @@ std::vector<std::vector<K>> createSmallerMatrix(usize_t row, Matrix matrix){
 }
 
 K Matrix::recursive_determinant(Matrix matrix) const {
-    std::vector<std::vector<K>> matrix_values = matrix.get_values();
+    std::vector<std::vector<K> > matrix_values = matrix.get_values();
     
     usize_t size = matrix.get_rows();
     if (size == 2)
@@ -151,7 +151,7 @@ Matrix Matrix::identity() const {
         throw std::invalid_argument("Identity matrix can only be created for square matrices.");
     }
 
-    std::vector<std::vector<K>> values(rows, std::vector<K>(rows, 0));
+    std::vector<std::vector<K> > values(rows, std::vector<K>(rows, 0));
     for (usize_t i = 0; i < rows; i++) {
         values[i][i] = 1;
     }
@@ -172,7 +172,7 @@ Matrix  Matrix::row_echelon_form(Matrix &mirror) const {
         size_t column_non_empty = found_non_zero_col(i, result);
 
         // if there is just zero column, stop
-        if (column_non_empty == -1)
+        if ((int)column_non_empty == -1)
             return result;
     
         // if the non-zero column is not in the diagonal change the index row
@@ -215,8 +215,8 @@ Matrix  Matrix::row_echelon_form(Matrix &mirror) const {
 }
 
 size_t  Matrix::found_non_zero_col(size_t start_row, const Matrix &matrix) const {
-    for (size_t i = matrix.get_cols() - 1; i >= 0; i--){
-        for (size_t j = start_row; j >= 0; j--){
+    for (int i = matrix.get_cols() - 1; i >= 0; i--){
+        for (int j = start_row; j >= 0; j--){
             if (matrix.get_value(j, i) != 0.)
                 return i;
         }
@@ -231,7 +231,7 @@ Matrix Matrix::inverse() const {
     if (determinant == 0)
         throw std::invalid_argument("Matrix is singular, it doesn't have an inverse.");
 
-    std::vector<std::vector<K>> identity_values = identity_matrix.get_values();
+    std::vector<std::vector<K> > identity_values = identity_matrix.get_values();
 
     Matrix row_echelon = this->row_echelon_form(identity_matrix);
 

@@ -43,5 +43,6 @@ class Vector {
 };
 
 std::ostream& operator<<(std::ostream& os, const Vector& values);
+Vector linear_combination(std::vector<Vector> &e_vectors, std::vector<K> coefs);
 
 #endif
