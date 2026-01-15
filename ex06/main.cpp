@@ -3,12 +3,41 @@
 #include "../Vector.hpp"
 #include "../Matrix.hpp"
 
+#define GREEN "\e[32m"
+#define END "\e[0m"
+
+void    print_cross_product(Vector u, Vector v)
+{
+        std::cout << u << " = u" << std::endl;
+        std::cout << v << " = v" << std::endl;
+
+        std::cout << cross_product(u, v) << " = cross_product(u, v)" << std::endl;
+}
+
 int main()
 {
-    std::cout << ":" << std::endl;
+    std::cout << GREEN << "CROSS PRODUCT:" << END << std::endl;
     try
     {
+        std::vector<K> vec1 = {0., 0., 1.};
+        std::vector<K> vec2 = {1., 0., 0.};
+        std::vector<K> vec3 = {1., 2., 3.};
+        std::vector<K> vec4 = {4., 5., 6.};
+        std::vector<K> vec5 = {4., 2., -3.};
+        std::vector<K> vec6 = {-2., -5., 16.};
 
+        Vector v1(vec1);
+        Vector v2(vec2);
+        Vector v3(vec3);
+        Vector v4(vec4);
+        Vector v5(vec5);
+        Vector v6(vec6);
+
+        print_cross_product(v1, v2);
+        std::cout << std::endl;
+        print_cross_product(v3, v4);
+        std::cout << std::endl;
+        print_cross_product(v5, v6);
     }
     catch (std::exception &e)
     {

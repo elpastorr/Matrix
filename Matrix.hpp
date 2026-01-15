@@ -46,7 +46,10 @@ class Matrix {
         void    add(Matrix mat);
         void    sub(Matrix mat);
         void    scl(K scalar);
-        void    mul_mat(const Matrix& mat);
+        Vector  mul_vec(const Vector& vec);
+        Matrix  mul_mat(const Matrix& mat);
+        K       trace();
+        Matrix  transpose();
 
         Matrix operator + (const Matrix& other);
         Matrix operator - (const Matrix& other);

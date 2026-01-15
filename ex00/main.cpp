@@ -3,10 +3,13 @@
 #include "../Vector.hpp"
 #include "../Matrix.hpp"
 
+#define GREEN "\e[32m"
+#define END "\e[0m"
+
 int main()
 {
     {
-        std::cout << "VECTOR TESTS:" << std::endl;
+        std::cout << GREEN << "VECTOR TESTS:" << END << std::endl;
 
         std::vector<K> vec = {2., 3.};
         Vector u(vec);
@@ -53,10 +56,6 @@ int main()
         tmp = u;
         tmp.scl(2.);
         std::cout << "u * 2 = " << tmp << std::endl;
-
-        tmp = u;
-        tmp.mul_mat(v);
-        std::cout << "u * v = " << tmp << std::endl;
     }
     return 0;
 }

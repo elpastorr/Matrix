@@ -277,39 +277,75 @@ void    Matrix::scl(K scalar) {
             this->set_value(i, j,  this->get_value(i, j) * scalar);
 }
 
-void    Matrix::mul_mat(const Matrix& mat) {
+Vector  Matrix::mul_vec(const Vector& vec) {
+    if (this->get_cols() != vec.get_size())
+        throw std::invalid_argument("Size incompatible for multiplication.");
+
+    Vector res(this->get_rows());
+    for (usize_t i = 0; i < this->get_rows(); i++) {
+        K sum = 0;
+        for (usize_t j = 0; j < this->get_cols(); j++) {
+            sum += this->get_value(i, j) * vec.get_value(j);
+        }
+        res.set_value(i, sum);
+    }
+    return res;
+}
+
+Matrix  Matrix::mul_mat(const Matrix& mat) {
     if (this->get_cols() != mat.get_rows())
         throw std::invalid_argument("Size incompatible for multiplication.");
 
-    Matrix tmp(this->get_rows(), mat.get_cols());
+    Matrix res(this->get_rows(), mat.get_cols());
     for (usize_t i = 0; i < this->get_rows(); i++) {
         for (usize_t j = 0; j < mat.get_cols(); j++) {
             K sum = 0;
             for (usize_t k = 0; k < this->get_cols(); k++) {
                 sum += this->get_value(i, k) * mat.get_value(k, j);
             }
-            tmp.set_value(i, j, sum);
+            res.set_value(i, j, sum);
         }
     }
-    *this = tmp;
+    return res;
 }
 
-Matrix Matrix::operator + (const Matrix& other) {
+K   Matrix::trace() {
+    if (this->get_rows() != this->get_cols())
+        throw std::invalid_argument("Trace can only be calculated for square matrices.");
+
+    K trace = 0;
+    for (usize_t i = 0; i < this->get_rows(); i++) {
+        trace += this->get_value(i, i);
+    }
+    return trace;
+}
+
+Matrix  Matrix::transpose() {
+    Matrix transposed(this->get_cols(), this->get_rows());
+
+    for (usize_t i = 0; i < this->get_rows(); i++) {
+        for (usize_t j = 0; j < this->get_cols(); j++) {
+            transposed.set_value(j, i, this->get_value(i, j));
+        }
+    }
+    return transposed;
+}
+Matrix  Matrix::operator + (const Matrix& other) {
     this->add(other);
     return *this;
 }
 
-Matrix Matrix::operator - (const Matrix& other) {
+Matrix  Matrix::operator - (const Matrix& other) {
     this->sub(other);
     return *this;
 }
 
-Matrix Matrix::operator * (const Matrix& other) {
+Matrix  Matrix::operator * (const Matrix& other) {
     this->mul_mat(other);
     return *this;
 }
 
-Matrix Matrix::operator*(const K& scalar) {
+Matrix  Matrix::operator*(const K& scalar) {
     this->scl(scalar);
     return *this;
 }
@@ -325,7 +361,10 @@ Matrix Matrix::operator*(const K& scalar) {
             if (j + 1 < columns)
                 os << ", ";
         }
-        os <<"]\n";
+        if (i + 1 < rows)
+            os <<"]\n";
+        else
+            os <<"]";
 
     }
 	return (os);

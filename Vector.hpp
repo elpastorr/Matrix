@@ -31,6 +31,11 @@ class Vector {
         void    add(Vector mat);
         void    sub(Vector mat);
         void    scl(K scalar);
+        K       dot(Vector v);
+        K       norm_1();
+        K       norm_2();
+        K       norm_inf();
+
 
         Vector operator + (const Vector& other);
         Vector operator - (const Vector& other);
@@ -43,6 +48,8 @@ class Vector {
 };
 
 std::ostream& operator<<(std::ostream& os, const Vector& values);
-Vector linear_combination(std::vector<Vector> &e_vectors, std::vector<K> coefs);
+Vector  linear_combination(std::vector<Vector> &e_vectors, std::vector<K> coefs);
+K       angle_cos(Vector &u, Vector &v);
+Vector  cross_product(Vector &vec_u, Vector &vec_v);
 
 #endif

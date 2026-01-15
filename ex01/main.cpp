@@ -2,6 +2,8 @@
 
 #include "../Vector.hpp"
 
+#define GREEN "\e[32m"
+#define END "\e[0m"
 
 void    print_linear_combination(std::vector<Vector> &e_vectors, std::vector<K> coefs)
 {
@@ -15,7 +17,7 @@ void    print_linear_combination(std::vector<Vector> &e_vectors, std::vector<K> 
 
 int main()
 {
-    std::cout << "LINEAR COMBINATIONS:" << std::endl;
+    std::cout << GREEN << "LINEAR COMBINATIONS:" << END << std::endl;
     try
     {
         std::vector<K> vec_e1 = {1., 0., 0.};
