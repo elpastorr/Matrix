@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "../Vector.hpp"
+#include "../includes/Vector.hpp"
 
 #define GREEN "\e[32m"
 #define END "\e[0m"

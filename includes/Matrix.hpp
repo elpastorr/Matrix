@@ -3,7 +3,8 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-#include <iostream>
+# include "Complex.hpp"
+# include <iostream>
 # include <ostream>
 # include <vector>
 # include "Vector.hpp"
@@ -38,10 +39,12 @@ class Matrix {
         K       recursive_determinant(Matrix matrix) const;
         K       determinant() const;
         Matrix  identity() const;
-        Matrix  row_echelon_form(Matrix &mirror) const;
-        size_t  found_non_zero_col(size_t start_row, const Matrix &matrix) const;
-
+        Matrix  row_echelon_w_identity(Matrix& identity) const;
+        Matrix  row_echelon() const;
+        Matrix  reduced_row_echelon() const;
         Matrix  inverse() const;
+        usize_t rank() const;
+
 
         void    add(Matrix mat);
         void    sub(Matrix mat);

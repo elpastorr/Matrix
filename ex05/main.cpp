@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "../Vector.hpp"
-#include "../Matrix.hpp"
+#include "../includes/Vector.hpp"
+#include "../includes/Matrix.hpp"
 
 #define GREEN "\e[32m"
 #define END "\e[0m"

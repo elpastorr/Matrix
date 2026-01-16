@@ -3,9 +3,10 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include <iostream>
+# include "Complex.hpp"
+# include <iostream>
 # include <ostream>
-#include <vector>
+# include <vector>
 
 typedef long unsigned int usize_t;
 

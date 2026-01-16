@@ -1,4 +1,4 @@
-#include "Matrix.hpp"
+#include "includes/Matrix.hpp"
 
 Matrix::Matrix(std::vector<std::vector<K> > values){
     usize_t rows = values.size();
@@ -66,7 +66,7 @@ size_t Matrix::get_rows() const {
 size_t Matrix::get_cols() const {
     if (this->_values.size() == 0)
         return 0;
-    return this->_values.size();
+    return this->_values[0].size();
 }
 
 size_t Matrix::get_nb_values() const {
@@ -158,35 +158,38 @@ Matrix Matrix::identity() const {
     return (Matrix(values));
 }
 
-Matrix  Matrix::row_echelon_form(Matrix &mirror) const {
+size_t  find_non_zero_col(usize_t start, const Matrix& mat) {
+    for (usize_t j = 0; j < mat.get_cols(); j++){
+        for (usize_t i = start; i < mat.get_rows(); i++){
+            if (mat.get_value(i, j) != 0.)
+                return j;
+        }
+    }
+    return -1;
+}
+
+Matrix  Matrix::row_echelon_w_identity(Matrix& identity) const {
     Matrix result(*this);
 
     if (result.get_rows() == 0 || result.get_cols() == 0)
         throw std::invalid_argument("Can't compute row echelon form of an empty matrix.");
+    if (identity.get_rows() != result.get_rows() || identity.get_cols() != result.get_cols())
+        throw std::invalid_argument("Identity matrix must have the same dimensions as the original matrix.");
 
-    if (result.get_rows() != mirror.get_rows() || result.get_cols() != mirror.get_cols())
-        throw std::invalid_argument("Mirror matrix must have same size as the original matrix.");
-
-    for (size_t i = 0; i < result.get_rows(); i++){
-        // find the first non-zero column
-        size_t column_non_empty = found_non_zero_col(i, result);
-
+    for (usize_t i = 0; i < result.get_rows(); i++){
+        int non_zero_col = find_non_zero_col(i, result);
         // if there is just zero column, stop
-        if ((int)column_non_empty == -1)
+        if (non_zero_col == -1)
             return result;
-    
-        // if the non-zero column is not in the diagonal change the index row
-        if (column_non_empty != i)
-            i = column_non_empty - 1;
 
-        K pivot = result.get_value(i, column_non_empty);
-        // if the pivot is null and there is a non-zero element in the same column, swap the rows
-        if (pivot == 0.){
-            size_t j = i + 1;
+        K pivot = result.get_value(i, non_zero_col);
+
+        if (pivot == 0.) {
+            usize_t j = i + 1;
             while (j < result.get_rows()){
-                if (!result.get_value(j, column_non_empty) != false){
+                if (result.get_value(j, non_zero_col) != 0.){
                     result.swap_rows(i, j);
-                    mirror.swap_rows(i, j);
+                    identity.swap_rows(i, j);
                     break;
                 }
                 j++;
@@ -197,47 +200,36 @@ Matrix  Matrix::row_echelon_form(Matrix &mirror) const {
 
         // normalize the row
         K factor = K(1) / pivot;
-        for (size_t j = 0; j < result.get_cols(); j++){
+        for (usize_t j = 0; j < result.get_cols(); j++) {
             result.set_value(i, j, result.get_value(i, j) * factor);
-            mirror.set_value(i, j, mirror.get_value(i, j) * factor);
+            identity.set_value(i, j, identity.get_value(i, j) * factor);
         }
-
-        // zero the other rows
-        for (size_t j = i + 1; j < result.get_rows(); j++){
-            K factor_to_zero = (result.get_value(j, column_non_empty)) * -1;
-            for (size_t k = 0; k < result.get_cols(); k++){
+        // get the other rows to zero
+        for (usize_t j = i + 1; j < result.get_rows(); j++){
+            K factor_to_zero = (result.get_value(j, non_zero_col)) * -1;
+            for (usize_t k = 0; k < result.get_cols(); k++) {
                 result.set_value(j, k, result.get_value(j, k) + factor_to_zero * result.get_value(i, k));
-                mirror.set_value(j, k, mirror.get_value(j, k) + factor_to_zero * mirror.get_value(i, k));
+                identity.set_value(j, k, identity.get_value(j, k) + factor_to_zero * identity.get_value(i, k));
             }
         }
     }
     return result;
 }
 
-size_t  Matrix::found_non_zero_col(size_t start_row, const Matrix &matrix) const {
-    for (int i = matrix.get_cols() - 1; i >= 0; i--){
-        for (int j = start_row; j >= 0; j--){
-            if (matrix.get_value(j, i) != 0.)
-                return i;
-        }
-    }
-    return -1;
-}
-
 Matrix Matrix::inverse() const {
+    if (this->get_rows() != this->get_cols())
+        throw std::invalid_argument("Inverse can only be calculated for square matrices.");
     Matrix identity_matrix = this->identity();
 
     K determinant = this->determinant();
     if (determinant == 0)
         throw std::invalid_argument("Matrix is singular, it doesn't have an inverse.");
 
-    std::vector<std::vector<K> > identity_values = identity_matrix.get_values();
-
-    Matrix row_echelon = this->row_echelon_form(identity_matrix);
+    Matrix row_echelon = this->row_echelon_w_identity(identity_matrix);
 
     usize_t columns = row_echelon.get_cols();
     for (usize_t i = row_echelon.get_rows() - 1; i > 0; i--){
-        size_t column_non_empty = found_non_zero_col(i, row_echelon);
+        size_t column_non_empty = find_non_zero_col(i, row_echelon);
         if (column_non_empty == -1)
             return identity_matrix;
         for (usize_t j = 0; j < i; j++){
@@ -321,7 +313,7 @@ K   Matrix::trace() {
 }
 
 Matrix  Matrix::transpose() {
-    Matrix transposed(this->get_cols(), this->get_rows());
+    Matrix transposed(this->get_rows(), this->get_cols());
 
     for (usize_t i = 0; i < this->get_rows(); i++) {
         for (usize_t j = 0; j < this->get_cols(); j++) {
@@ -330,6 +322,83 @@ Matrix  Matrix::transpose() {
     }
     return transposed;
 }
+
+Matrix  Matrix::row_echelon() const {
+    Matrix result(*this);
+
+    if (result.get_rows() == 0 || result.get_cols() == 0)
+        throw std::invalid_argument("Can't compute row echelon form of an empty matrix.");
+
+    for (usize_t i = 0; i < result.get_rows(); i++){
+        int non_zero_col = find_non_zero_col(i, result);
+        // if there is just zero column, stop
+        if (non_zero_col == -1)
+            return result;
+
+        K pivot = result.get_value(i, non_zero_col);
+
+        if (pivot == 0.) {
+            usize_t j = i + 1;
+            while (j < result.get_rows()){
+                if (result.get_value(j, non_zero_col) != 0.){
+                    result.swap_rows(i, j);
+                    break;
+                }
+                j++;
+            }
+            if (j == result.get_rows())
+                continue;
+            pivot = result.get_value(i, non_zero_col);
+        }
+
+        // normalize the row
+        K factor = K(1) / pivot;
+        for (usize_t j = 0; j < result.get_cols(); j++)
+            result.set_value(i, j, result.get_value(i, j) * factor);
+    
+        // get the other rows to zero
+        for (usize_t j = i + 1; j < result.get_rows(); j++){
+            K factor_to_zero = (result.get_value(j, non_zero_col)) * -1;
+            for (usize_t k = 0; k < result.get_cols(); k++) {
+                result.set_value(j, k, result.get_value(j, k) + factor_to_zero * result.get_value(i, k));
+            }
+        }
+    }
+    return result;
+}
+
+Matrix  Matrix::reduced_row_echelon() const {
+    Matrix result(this->row_echelon());
+
+    for (usize_t i = result.get_rows() - 1; i > 0; i--){
+        size_t column_non_empty = find_non_zero_col(i, result);
+        if (column_non_empty == -1)
+            return result;
+        for (usize_t j = 0; j < i; j++){
+            K factor_to_zero = (result.get_value(j, column_non_empty)) * -1;
+            for (usize_t k = 0; k < result.get_cols(); k++){
+                result.set_value(j, k, result.get_value(j, k) + factor_to_zero * result.get_value(i, k));
+            }
+        }
+    }
+    return result;
+}
+
+usize_t Matrix::rank() const {
+    Matrix row_echelon = this->row_echelon();
+    usize_t rank = 0;
+
+    for (usize_t i = 0; i < row_echelon.get_rows(); i++){
+        for (usize_t j = 0; j < row_echelon.get_cols(); j++){
+            if (row_echelon.get_value(i, j) != 0.){
+                rank++;
+                break;
+            }
+        }
+    }
+    return rank;
+}
+
 Matrix  Matrix::operator + (const Matrix& other) {
     this->add(other);
     return *this;
