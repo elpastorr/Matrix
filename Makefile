@@ -10,15 +10,15 @@ ifeq ($(filter $(MAIN),$(VALID_MAINS)),)
 $(error Invalid MAIN argument. Use: make MAIN=<main_number> COMPLEX=<0|1>)
 endif
 
-ifeq ($(USE_COMPLEX),1)
+ifeq ($(COMPLEX),1)
 CXXFLAGS += -DCOMPLEX
 endif
 
 TARGET = mains
 MAIN_FILE = $(TARGET)/main_$(MAIN).cpp
-SRCS = srcs/Matrix.cpp srcs/Vector.cpp srcs/Complex.cpp $(MAIN_FILE)
+SRCS = srcs/Matrix.cpp srcs/Vector.cpp srcs/Complex.cpp srcs/utils.cpp $(MAIN_FILE)
 OBJS = $(SRCS:.cpp=.o)
-DEPS = includes/Matrix.hpp includes/Vector.hpp includes/Complex.hpp
+DEPS = includes/Matrix.hpp includes/Vector.hpp includes/Complex.hpp includes/utils.hpp
 
 all: $(NAME)
 

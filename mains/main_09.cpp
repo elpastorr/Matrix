@@ -1,16 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
-
-void    print_transpose(Matrix m) {
-        std::cout << m << " = m" << std::endl << std::endl;
-
-        std::cout << m.transpose() << " = transpose(m)" << std::endl;
-}
+#include "../includes/utils.hpp"
 
 int main()
 {

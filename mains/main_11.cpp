@@ -1,15 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
-
-void    print_determinant(Matrix m) {
-    std::cout << m << " = m" << std::endl;
-    std::cout << "Determinant: " << m.determinant() << std::endl;
-}
+#include "../includes/utils.hpp"
 
 int main()
 {

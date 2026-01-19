@@ -1,10 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
+#include "../includes/utils.hpp"
 
 template<typename V>
 V lerp(V u, V v, float t)
@@ -21,7 +15,6 @@ void   print_linear_interpolation(V u, V v, float t)
     std::cout << "with t = " << t << " is: " << lerp(u, v, t) << std::endl;
 }
 
-
 int main()
 {
     std::cout << GREEN << "LINEAR INTERPOLATION:" << END <<std::endl;
@@ -32,7 +25,6 @@ int main()
 
         Vector v1(vec);
         Vector v2(vec2);
-
         std::vector<std::vector<K> > mat = {vec, {3., 4.}};
         Matrix m1(mat);
         Matrix mat2 = mat;

@@ -1,19 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
-
-void   print_norms(Vector v)
-{
-    std::cout << v << " = v" << std::endl;
-
-    std::cout << "||v||_1 = " << v.norm_1() << std::endl;
-    std::cout << "||v||_2 = " << v.norm_2() << std::endl;
-    std::cout << "||v||_inf = " << v.norm_inf() << std::endl;
-}
+#include "../includes/utils.hpp"
 
 int main()
 {

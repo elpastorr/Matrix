@@ -1,19 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
-
-void    print_dot_product(Vector u, Vector v)
-{
-        std::cout << u << " = u" << std::endl;
-        std::cout << v << " = v" << std::endl;
-
-        std::cout << "u . v = " << u.dot(v) << std::endl;
-}
-
+#include "../includes/utils.hpp"
 
 int main()
 {

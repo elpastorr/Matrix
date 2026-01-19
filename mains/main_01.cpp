@@ -1,9 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
+#include "../includes/utils.hpp"
 
 void    print_linear_combination(std::vector<Vector> &e_vectors, std::vector<K> coefs)
 {

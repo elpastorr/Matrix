@@ -1,21 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
-
-void    print_cosine(Vector u, Vector v)
-{
-        std::cout << u << " = u" << std::endl;
-        std::cout << v << " = v" << std::endl;
-
-        K cosine = angle_cos(u, v);
-
-        std::cout << "cosine(u, v) = " << cosine << std::endl;
-}
-
+#include "../includes/utils.hpp"
 
 int main()
 {

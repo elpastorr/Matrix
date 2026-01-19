@@ -1,24 +1,4 @@
-#include <iostream>
-
-#include "../includes/Vector.hpp"
-#include "../includes/Matrix.hpp"
-
-#define GREEN "\e[32m"
-#define END "\e[0m"
-
-void    print_mul_vec(Matrix m, Vector v) {
-        std::cout << m << " = m" << std::endl << std::endl;
-        std::cout << v << " = v" << std::endl << std::endl;
-        
-        std::cout << m.mul_vec(v) << " = m * v" << std::endl;
-}
-
-void    print_mul_mat(Matrix m1, Matrix m2) {
-        std::cout << m1 << " = m1" << std::endl << std::endl;
-        std::cout << m2 << " = m2" << std::endl << std::endl;
-
-        std::cout << m1.mul_mat(m2) << " = m1 * m2" << std::endl;
-}
+#include "../includes/utils.hpp"
 
 int main()
 {
