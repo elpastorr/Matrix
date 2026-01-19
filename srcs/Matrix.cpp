@@ -1,4 +1,4 @@
-#include "includes/Matrix.hpp"
+#include "../includes/Matrix.hpp"
 
 Matrix::Matrix(std::vector<std::vector<K> > values){
     usize_t rows = values.size();
@@ -230,7 +230,7 @@ Matrix Matrix::inverse() const {
     usize_t columns = row_echelon.get_cols();
     for (usize_t i = row_echelon.get_rows() - 1; i > 0; i--){
         size_t column_non_empty = find_non_zero_col(i, row_echelon);
-        if (column_non_empty == -1)
+        if (static_cast<int>(column_non_empty) == -1)
             return identity_matrix;
         for (usize_t j = 0; j < i; j++){
             K factor_to_zero = (row_echelon.get_value(j, column_non_empty)) * -1;
@@ -372,7 +372,7 @@ Matrix  Matrix::reduced_row_echelon() const {
 
     for (usize_t i = result.get_rows() - 1; i > 0; i--){
         size_t column_non_empty = find_non_zero_col(i, result);
-        if (column_non_empty == -1)
+        if (static_cast<int>(column_non_empty) == -1)
             return result;
         for (usize_t j = 0; j < i; j++){
             K factor_to_zero = (result.get_value(j, column_non_empty)) * -1;

@@ -42,6 +42,7 @@ int main()
         std::vector<K> coeff_2 = {10., -2.};
 
         print_linear_combination(e_vecs, coeff_1);
+        std::cout << std::endl;
         print_linear_combination(v_vecs, coeff_2);
     }
     catch (std::exception &e)

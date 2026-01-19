@@ -32,7 +32,7 @@ int main()
         std::cout << "u * 2 = " << tmp << std::endl;
     }
     {
-        std::cout << "\nMATRIX TESTS:" << std::endl;
+        std::cout << GREEN << "\nMATRIX TESTS:" << END << std::endl;
         std::vector<std::vector<K> > mat = {
         {1., 2.},
         {3., 4.}};

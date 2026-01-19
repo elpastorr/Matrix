@@ -34,7 +34,9 @@ int main()
         Matrix m3(mat3);
 
         print_trace(m1);
+        std::cout << std::endl;
         print_trace(m2);
+        std::cout << std::endl;
         print_trace(m3);
     }
     catch (std::exception &e)

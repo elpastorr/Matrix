@@ -1,4 +1,4 @@
-#include "includes/Vector.hpp"
+#include "../includes/Vector.hpp"
 
 Vector::Vector(std::vector<K> values){
     if (values.size() < 2){
@@ -19,7 +19,7 @@ std::vector<K> Vector::get_values() const {
 }
 
 K Vector::get_value(size_t i) const {
-    if (i < 0 || i >= this->get_size()) {
+    if (i >= this->get_size()) {
         throw std::out_of_range("Impossible to get value out of the vector.");
     }
     return _values[i];
@@ -34,7 +34,7 @@ void Vector::set_values(std::vector<K>& vec) {
 }
 
 void Vector::set_value(size_t i, K value) {
-    if (i < 0 || i >= _values.size()) {
+    if (i >= _values.size()) {
         throw std::out_of_range("Impossible to set value out of the vector.");
     }
     _values[i] = value;

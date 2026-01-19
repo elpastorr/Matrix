@@ -1,4 +1,4 @@
-#include "includes/Complex.hpp"
+#include "../includes/Complex.hpp"
 
 Complex::Complex() : _real(0), _imag(0) {}
 
@@ -152,7 +152,7 @@ Complex Complex::operator -= (const Complex &other) {
 }
 
 Complex Complex::operator *= (const Complex &other) {
-    auto tmp = _real;
+    float   tmp = _real;
     _real = _real * other.getReal() - _imag * other.getImag();
     _imag = tmp * other.getImag() + _imag * other.getReal();
     return *this;

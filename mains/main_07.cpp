@@ -7,15 +7,15 @@
 #define END "\e[0m"
 
 void    print_mul_vec(Matrix m, Vector v) {
-        std::cout << m << " = m" << std::endl;
-        std::cout << v << " = v" << std::endl;
+        std::cout << m << " = m" << std::endl << std::endl;
+        std::cout << v << " = v" << std::endl << std::endl;
         
         std::cout << m.mul_vec(v) << " = m * v" << std::endl;
 }
 
 void    print_mul_mat(Matrix m1, Matrix m2) {
-        std::cout << m1 << " = m1" << std::endl;
-        std::cout << m2 << " = m2" << std::endl;
+        std::cout << m1 << " = m1" << std::endl << std::endl;
+        std::cout << m2 << " = m2" << std::endl << std::endl;
 
         std::cout << m1.mul_mat(m2) << " = m1 * m2" << std::endl;
 }
@@ -52,11 +52,15 @@ int main()
         Vector v(vec);
 
         print_mul_vec(m1, v);
+        std::cout << std::endl;
         print_mul_vec(m2, v);
+        std::cout << std::endl;
         print_mul_vec(m3, v);
-
+        std::cout << std::endl;
         print_mul_mat(m1, m1);
+        std::cout << std::endl;
         print_mul_mat(m1, m4);
+        std::cout << std::endl;
         print_mul_mat(m5, m4);
     }
     catch (std::exception &e)

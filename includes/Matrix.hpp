@@ -3,10 +3,10 @@
 #ifndef MATRIX_HPP
 #define MATRIX_HPP
 
-# include "Complex.hpp"
 # include <iostream>
 # include <ostream>
 # include <vector>
+# include "Complex.hpp"
 # include "Vector.hpp"
 
 typedef long unsigned int usize_t;

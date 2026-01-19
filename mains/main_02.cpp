@@ -17,11 +17,8 @@ V lerp(V u, V v, float t)
 template<typename V>
 void   print_linear_interpolation(V u, V v, float t)
 {
-    std::cout << "Linear interpolation between" << std::endl;
-    std::cout << u << " and" << std::endl;
-    std::cout << v << std::endl;
-    std::cout << "with t = " << t << " is:" << std::endl;
-    std::cout << lerp(u, v, t) << std::endl;
+    std::cout << "Linear interpolation between " << u << " and " << v << std::endl;
+    std::cout << "with t = " << t << " is: " << lerp(u, v, t) << std::endl;
 }
 
 
@@ -43,10 +40,15 @@ int main()
         Matrix m2(mat2);
 
         print_linear_interpolation(0., 1., 0.);
+        std::cout << std::endl;
         print_linear_interpolation(0., 1., 1.);
+        std::cout << std::endl;
         print_linear_interpolation(0., 1., 0.5);
+        std::cout << std::endl;
         print_linear_interpolation(21., 42., 0.3);
+        std::cout << std::endl;
         print_linear_interpolation(v1, v2, 0.3);
+        std::cout << std::endl;
         print_linear_interpolation(m1, m2, 0.5);
     }
     catch (std::exception &e)
