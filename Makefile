@@ -14,11 +14,11 @@ ifeq ($(COMPLEX),1)
 CXXFLAGS += -DCOMPLEX
 endif
 
-TARGET = mains
-MAIN_FILE = $(TARGET)/main_$(MAIN).cpp
+MAIN_FILE = mains/main_$(MAIN).cpp
 SRCS = srcs/Matrix.cpp srcs/Vector.cpp srcs/Complex.cpp srcs/utils.cpp $(MAIN_FILE)
 OBJS = $(SRCS:.cpp=.o)
 DEPS = includes/Matrix.hpp includes/Vector.hpp includes/Complex.hpp includes/utils.hpp
+OBJS_CLEAN = srcs/Matrix.o srcs/Vector.o srcs/Complex.o srcs/utils.o mains/main_00.o mains/main_01.o mains/main_02.o mains/main_03.o mains/main_04.o mains/main_05.o mains/main_06.o mains/main_07.o mains/main_08.o mains/main_09.o mains/main_10.o mains/main_11.o mains/main_12.o mains/main_13.o mains/main_complex.o
 
 all: $(NAME)
 
@@ -29,7 +29,7 @@ $(NAME): $(OBJS)
 	$(CXX) $(CXXFLAGS) -I includes -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS_CLEAN)
 
 fclean: clean
 	rm -f $(NAME)

@@ -1,3 +1,5 @@
+#define COMPLEX 1
+
 #include "../includes/utils.hpp"
 
 template<typename V>
@@ -27,7 +29,7 @@ int main()
         std::cout << "c1: " << c1 << std::endl;
         std::cout << "c2: " << c2 << std::endl;
         std::cout << "c1 / c2: " << c1 / c2 << std::endl;
-        std::cout << "Result should be: -0.19178 + 0.82191i\n" << std::endl;
+        std::cout << "Result should be: -0.191781 - 0.821918i\n" << std::endl;
         std::cout << "c1 * c2: " << c1 * c2 << std::endl;
         std::cout << "Result should be: -50 - 36i\n" << std::endl;
         std::cout << "c1 + c2: " << c1 + c2 << std::endl;

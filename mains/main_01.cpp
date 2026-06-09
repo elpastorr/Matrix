@@ -1,15 +1,5 @@
 #include "../includes/utils.hpp"
 
-void    print_linear_combination(std::vector<Vector> &e_vectors, std::vector<K> coefs)
-{
-    std::cout << "Linear combination of" << std::endl;
-    for (usize_t i = 0; i < e_vectors.size(); i++)
-        std::cout << e_vectors[i] << std::endl;
-    std::cout << "with coefficients " << coefs << " is:" << std::endl;
-    std::cout << linear_combination(e_vectors, coefs) << std::endl;
-}
-
-
 int main()
 {
     std::cout << GREEN << "LINEAR COMBINATIONS:" << END << std::endl;
