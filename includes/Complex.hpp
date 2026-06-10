@@ -1,4 +1,6 @@
 #pragma once
+#ifndef COMPLEX_HPP
+#define COMPLEX_HPP
 
 # include <iostream>
 
@@ -45,3 +47,5 @@ class Complex {
 };
 
 std::ostream &operator<<(std::ostream &os, const Complex &complex);
+
+#endif

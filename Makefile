@@ -1,6 +1,6 @@
 NAME = matrix
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror
+CPP = c++
+CPPFLAGS = -Wall -Wextra -Werror
 
 MAIN ?= 00
 COMPLEX ?= 0
@@ -11,7 +11,7 @@ $(error Invalid MAIN argument. Use: make MAIN=<main_number> COMPLEX=<0|1>)
 endif
 
 ifeq ($(COMPLEX),1)
-CXXFLAGS += -DCOMPLEX
+CPPFLAGS += -DCOMPLEX
 endif
 
 MAIN_FILE = mains/main_$(MAIN).cpp
@@ -23,10 +23,10 @@ OBJS_CLEAN = srcs/Matrix.o srcs/Vector.o srcs/Complex.o srcs/utils.o mains/main_
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+	$(CPP) $(CPPFLAGS) -o $@ $^
 
 %.o: %.cpp $(DEPS)
-	$(CXX) $(CXXFLAGS) -I includes -c $< -o $@
+	$(CPP) $(CPPFLAGS) -I includes -c $< -o $@
 
 clean:
 	rm -f $(OBJS_CLEAN)

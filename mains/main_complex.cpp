@@ -1,5 +1,3 @@
-#define COMPLEX 1
-
 #include "../includes/utils.hpp"
 
 template<typename V>

@@ -11,10 +11,12 @@
 
 typedef long unsigned int usize_t;
 
-# ifdef COMPLEX
-typedef Complex K;
-# else
+# ifndef K
+#  ifndef COMPLEX
 typedef double K;
+#  else
+typedef Complex K;
+#  endif
 # endif
 
 

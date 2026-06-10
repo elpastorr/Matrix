@@ -1,6 +1,8 @@
 #ifndef UTILS_HPP
 #define UTILS_HPP
 
+#include <vector>
+#include "Vector.hpp"
 #include "Matrix.hpp"
 
 #define GREEN "\e[32m"
