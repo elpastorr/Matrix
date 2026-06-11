@@ -94,7 +94,7 @@ K   sqrt(K value) {
     return res;
 }
 
-// somme des valeurs absolues des coordonnées 
+// Taxicab or Manhattan norm: sum of absolute values of coords 
 K   Vector::norm_1() {
     K res = abs(_values[0]);
 
@@ -103,7 +103,7 @@ K   Vector::norm_1() {
     return res;
 }
 
-//racine carrée de la somme des carrés des coordonnées
+// Euclidean norm: sqrt of sum of square of coords
 K   Vector::norm_2() {
     K res = _values[0] * _values[0];
 
@@ -112,7 +112,7 @@ K   Vector::norm_2() {
     return sqrt(res);
 }
 
-// valeur absolue de la coordonnée la plus grande
+// Supremum normvaleur: absolute value of max coord
 K   Vector::norm_inf() {
     K res = abs(_values[0]);
 
